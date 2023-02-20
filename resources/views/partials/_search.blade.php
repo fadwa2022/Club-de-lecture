@@ -1,4 +1,4 @@
-<form action="">
+<form id="search" action="">
     <div class="relative border-2 border-gray-100 m-4 rounded-lg">
         <div class="absolute top-4 left-3">
             <i
@@ -20,4 +20,34 @@
             </button>
         </div>
     </div>
+<div class="relative border-2 border-gray-100 m-4 rounded-lg">
+  <select id="categorie" class="border bg-red-500  text-sm rounded-lg   block w-full p-2.5 ">
+  <option selected>Choose a country</option>
+  @foreach($livres as $livre)
+
+  <option  value="{{$livre->categorie->id}}">{{$livre->categorie->categorie}}</option>
+@endforeach
+</div>
+</select>
+
 </form>
+{{-- <script>
+    document.getElementById('').addEventListener('change', function() {
+        document.getElementById('search').submit();
+    });
+</script> --}}
+<script>
+    document.getElementById('categorie').addEventListener('change', function() {
+        var categorieId = this.value;
+        window.location.href = 'http://127.0.0.1:8000/?search=' + categorieId ;
+    });
+</script>
+
+
+
+
+
+
+
+
+

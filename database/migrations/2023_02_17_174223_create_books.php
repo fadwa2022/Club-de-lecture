@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('discription');
             $table->string('auteur');
-            $table->integer('categorie');
+            $table->integer('categorie_id');
             $table->integer('likes');
             $table->integer('dislikes');
             $table->integer('commentaires');
