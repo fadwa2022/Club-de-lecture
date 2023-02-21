@@ -92,22 +92,41 @@
           </ul>
         </nav><!-- .navbar -->
 
-        <div class="position-relative">
+        <div class="position-relative d-flex">
+@auth
+
           <a href="#" class="mx-2"><span class="bi-facebook"></span></a>
           <a href="#" class="mx-2"><span class="bi-twitter"></span></a>
           <a href="#" class="mx-2"><span class="bi-instagram"></span></a>
-
           <a href="#" class="mx-2 js-search-open"><span class="bi-search"></span></a>
+            <form action="/logout" method="POST" >
+            @csrf
+            <button type="submit" class="mx-2"><span class="bi bi-box-arrow-in-left"></span></button>
+        </form>
+
           <i class="bi bi-list mobile-nav-toggle"></i>
 
           <!-- ======= Search Form ======= -->
           <div class="search-form-wrap js-search-form-wrap">
             <form action="search-result.html" class="search-form">
-              <span class="icon bi-search"></span>
+                @csrf
+                <span class="icon bi-search"></span>
               <input type="text" placeholder="Search" class="form-control">
               <button class="btn js-search-close"><span class="bi-x"></span></button>
             </form>
           </div><!-- End Search Form -->
+@else
+    <a href="/register" class="hover:text-laravel"
+        ><i class="fa-solid fa-user-plus"></i> Register</a
+    >
+
+
+    <a href="/login" class="hover:text-laravel"
+        ><i class="fa-solid fa-arrow-right-to-bracket"></i>
+        Login</a
+    >
+
+@endauth
 
         </div>
 

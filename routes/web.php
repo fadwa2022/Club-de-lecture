@@ -1,11 +1,7 @@
 <?php
 
-use App\Models\Listing;
-use Illuminate\Http\Request;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\ClientController;
-use App\Http\Controllers\LivresController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,30 +14,18 @@ use App\Http\Controllers\LivresController;
 |
 */
 
-// Common Resource Routes:
-// index - Show all listings
-// show - Show single listing
-// create - Show form to create new listing
-// store - Store new listing
-// edit - Show form to edit listing
-// update - Update listing
-// destroy - Delete listing
+Route::get('/', function () {
+    return view('welcome');
+});
 
-// All Livre
-Route::get('/', [LivresController::class, 'index']);
-// profil user
-Route::get('/profile', [ClientController::class, 'profile']);
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-// Show Register/Create Form
-Route::get('/register', [UserController::class, 'create'])->middleware('guest');
-// Create New User
-Route::post('/users', [UserController::class, 'store']);
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
-// Log User Out
-Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
-
-// Show Login Form
-Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
-
-// Log In User
-Route::post('/users/authenticate', [UserController::class, 'authenticate']);
+require __DIR__.'/auth.php';

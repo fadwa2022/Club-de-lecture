@@ -4,7 +4,7 @@
     <div class="mb-10 overflow-hidden rounded-lg bg-white">
       <a href="#" class="group relative block bg-black">
           <img
-src="assets/img/post-sq-1.jpg"
+src="assets/img/31j31fIvlrL._SX317_BO1,204,203,200_.jpg"
             {{-- src="{{$livre->image ? asset ('storage/'. $livre->image) : 'assets/img/post-sq-1.jpg'}}" --}}
             class="absolute inset-0 h-full w-full object-cover opacity-75 transition-opacity group-hover:opacity-50"
           />
