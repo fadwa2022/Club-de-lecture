@@ -14,14 +14,14 @@
         <div class="absolute top-2 right-2">
             <button
                 type="submit"
-                class="h-10 w-20 text-white rounded-lg bg-red-500 hover:bg-red-600"
+                class="h-10 w-20 text-white rounded-lg bg-red-400 hover:bg-red-400"
             >
                 Search
             </button>
         </div>
     </div>
 <div class="relative border-2 border-gray-100 m-4 rounded-lg">
-  <select id="categorie" class="border bg-red-500  text-sm rounded-lg   block w-full p-2.5 ">
+  <select id="categorie" class="border bg-red-400  text-sm rounded-lg   block w-full p-2.5 ">
   <option selected>Choose a country</option>
   @foreach($livres as $livre)
 

@@ -5,12 +5,12 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>ZenBlog Bootstrap Template - Index</title>
+  <title>Books</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/images/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
   <link rel="icon" href="{{asset('images/favicon.png')}}" />
 
@@ -61,12 +61,12 @@
         <a href="index.html" class="logo d-flex align-items-center">
           <!-- Uncomment the line below if you also wish to use an image logo -->
           <!-- <img src="assets/img/logo.png" alt=""> -->
-          <h1>ZenBlog</h1>
+          <h1>Lives</h1>
         </a>
 
         <nav id="navbar" class="navbar">
           <ul>
-            <li><a href="index.html">Blog</a></li>
+            <li><a href="index.html">Books</a></li>
             <li><a href="single-post.html">Single Post</a></li>
             <li class="dropdown"><a href="category.html"><span>Categories</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
               <ul>
