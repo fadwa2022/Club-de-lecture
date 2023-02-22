@@ -1,6 +1,6 @@
 <x-layout>
-    @include('partials._hero')
-    @include('partials._search')
+    @include('livres.partials._hero')
+    @include('livres.partials._search')
 <!-- ====== Cards Section Start -->
 <section>
 
@@ -10,7 +10,6 @@
 
   @foreach($livres as $livre)
         <x-livre-card :livre="$livre" />
-
 @endforeach
 
 @else

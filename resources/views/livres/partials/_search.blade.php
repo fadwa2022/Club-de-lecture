@@ -23,9 +23,9 @@
 <div class="relative border-2 border-gray-100 m-4 rounded-lg">
   <select id="categorie" class="border bg-red-400  text-sm rounded-lg   block w-full p-2.5 ">
   <option selected>Choose a country</option>
-  @foreach($livres as $livre)
+  @foreach($categories as $categorie)
 
-  <option  value="{{$livre->categorie->id}}">{{$livre->categorie->categorie}}</option>
+  <option  value="{{$categorie->id}}">{{$categorie->categorie}}</option>
 @endforeach
 </div>
 </select>

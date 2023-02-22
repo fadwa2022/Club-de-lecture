@@ -17,18 +17,17 @@ use App\Http\Controllers\ProfileController;
 
 Route::get('/', [LivresController::class, 'index']);
 Route::get('/home', [LivresController::class, 'index']);
-
+Route::get('/dashboard', [LivresController::class, 'dashboard'])->name('dashboard');
+Route::post('/createcategorie', [LivresController::class, 'store']);
 
 
 Route::middleware('auth')->group(function () {
+    Route::get('/profile/f', [ProfileController::class, 'favorites'])->name('profile.favorites');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 Route::middleware(['auth','role:admin'])->group(function() {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-
+ 
     });
 require __DIR__.'/auth.php';
