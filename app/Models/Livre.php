@@ -33,6 +33,7 @@ public function scopeFilter($query, array $filters)
 
         }
     }
+
     // // relation ship to user
     // public function user(){
     //     return $this->belongsTo(User::class , 'user_id');
