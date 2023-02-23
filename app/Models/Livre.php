@@ -21,7 +21,7 @@ class Livre extends Model
     // }
     //     }
  public function categorie(){
-    return $this ->belongsTo(Categories::class);
+    return $this->belongsTo(Categories::class);
  }
 public function scopeFilter($query, array $filters)
     {

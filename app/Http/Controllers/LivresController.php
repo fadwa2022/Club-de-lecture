@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Categories;
-use App\Models\Livre;
-use Illuminate\Http\Request;
 use DB;
+use App\Models\User;
+use App\Models\Livre;
+use App\Models\groupes;
+use App\Models\Categories;
+use Illuminate\Http\Request;
+
 class LivresController extends Controller
 {
 
@@ -15,15 +18,15 @@ class LivresController extends Controller
     {
         //    $livres= Livre::all();
 
-        // dd($request);
 
         return view('livres\index', [
             'livres' => livre::latest()->filter(request(['search']))->paginate(4), //for simplepagination Simplepaginete()
-            'categories'=> Categories::all()
+            'categories'=> Categories::all(),
 
         ]);
     }
     public function dashboard(){
+     
      return view('dashboard', [
                     'categories'=> Categories::all(),
                     'books'=> Livre::all()->filter(function ($entry) {
@@ -32,7 +35,8 @@ class LivresController extends Controller
                     'booksarchiver'=> Livre::all()->filter(function ($entry) {
                         return $entry->archiver === 'archive';
                     }),
-
+                    'users'=>User::all(),
+                    'groupes'=>groupes::all()
                 ]);
     }
      //store
@@ -62,6 +66,23 @@ class LivresController extends Controller
         $categorie->delete();
         return Redirect('/dashboard')->with('message','categorie deleted successfully');
      }
+
+
+          //storebook
+          public function storebook(Request $request)
+          {
+              $formFields = $request->validate([
+                  'title' => 'required',
+                  'discription' => 'required',
+                  'auteur' => 'required',
+                  'categorie_id' => 'required',
+
+                ]);
+
+              Livre::create($formFields);
+
+              return redirect('/dashboard')->with('message','categorie created successfully');
+          }
           // updateLIVRE
     public function updatebook(Request $request,Livre $book)
     {
@@ -85,6 +106,14 @@ class LivresController extends Controller
      public function archiverbook(Livre $book)
      {
          $formFields = ['archiver'=>'archive'];
+
+         $book->update($formFields);
+         return Redirect('/dashboard')->with('message','book updated successfully');
+
+     }
+     public function desarchiverbook(Livre $book)
+     {
+         $formFields = ['archiver'=> null];
 
          $book->update($formFields);
          return Redirect('/dashboard')->with('message','book updated successfully');

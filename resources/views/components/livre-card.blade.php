@@ -12,6 +12,7 @@ src="assets/img/31j31fIvlrL._SX317_BO1,204,203,200_.jpg"
           <div class="relative p-8">
             <p class="text-sm font-medium uppercase tracking-widest text-pink-500">
                 {{$livre->categorie->categorie}}
+
             </p>
 
             <p class="text-2xl font-bold text-white"> {{$livre->title}} </p>

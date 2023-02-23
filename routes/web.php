@@ -21,10 +21,11 @@ Route::get('/dashboard', [LivresController::class, 'dashboard'])->name('dashboar
 Route::post('/createcategorie', [LivresController::class, 'store']);
 Route::put('/categorie/{categorie}', [LivresController::class, 'update']);
 Route::delete('/categories/{categorie}', [LivresController::class, 'delete']);
+Route::post('/createbook', [LivresController::class, 'storebook']);
 Route::put('/book/{book}', [LivresController::class, 'updatebook']);
 Route::delete('/books/delete/{book}', [LivresController::class, 'deletebook']);
 Route::put('/books/archiver/{book}', [LivresController::class, 'archiverbook']);
-Route::put('/books/desarchiver/{book}', [LivresController::class, 'archiverbook']);
+Route::put('/books/desarchiver/{book}', [LivresController::class, 'desarchiverbook']);
 
 
 Route::middleware('auth')->group(function () {
