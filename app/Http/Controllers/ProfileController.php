@@ -15,16 +15,18 @@ class ProfileController extends Controller
     /**
      * Display the user's profile form.
      */
-    public function favorites(favorites $favorites){
-        dd($favorites);
-        return view('profile.edit', [
-            'favorites' => $favorites,
-        ]);
-    }
+
     public function edit(Request $request): View
     {
+        $favorites= favorites::join('books', 'favorites.books_id', '=', 'books.id')
+        ->select('favorites.*', 'books.title','books.image','books.discription','books.auteur','books.id as id_book')
+        ->get()->filter(function ($entry) {
+            return $entry->user_id === auth()->id();
+        });
+ 
         return view('profile.edit', [
             'user' => $request->user(),
+            'favorites'=>$favorites
         ]);
     }
 

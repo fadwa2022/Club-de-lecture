@@ -1,14 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use DB;
 use App\Models\User;
 use App\Models\Livre;
 use App\Models\groupes;
 use App\Models\Categories;
+use App\Models\favorites;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 class LivresController extends Controller
 {
 
@@ -16,114 +15,76 @@ class LivresController extends Controller
     // request for get from url
     public function index(Request $request)
     {
-        //    $livres= Livre::all();
+
+    $livres = Livre::latest()->filter(request(['search']))->paginate(4);
+        // for ($i = 0; $i < sizeof($livres); $i++) {
+        //     $tab = explode("\\",$livres->image);
+        //     $livres->image = $tab[6];
+        //       };
+      return view('livres\index',
+      [
+    'livres' =>$livres,
+      'categories'=> Categories::all()
+
+    ]);
+    }
 
 
-        return view('livres\index', [
-            'livres' => livre::latest()->filter(request(['search']))->paginate(4), //for simplepagination Simplepaginete()
-            'categories'=> Categories::all(),
-
+    public function livre (Livre $livre ){
+        return view('livres\livre', [
+            'livre' => $livre
         ]);
     }
-    public function dashboard(){
-     
-     return view('dashboard', [
-                    'categories'=> Categories::all(),
-                    'books'=> Livre::all()->filter(function ($entry) {
-                        return $entry->archiver === null;
-                    }),
-                    'booksarchiver'=> Livre::all()->filter(function ($entry) {
-                        return $entry->archiver === 'archive';
-                    }),
-                    'users'=>User::all(),
-                    'groupes'=>groupes::all()
-                ]);
-    }
-     //store
-     public function store(Request $request)
-     {
-         $formFields = $request->validate([
-             'categorie' => 'required',
-         ]);
 
-         Categories::create($formFields);
-
-         return redirect('/dashboard')->with('message','categorie created successfully');
-     }
-       // update
-    public function update(Request $request,Categories $categorie)
+    public function updatelike ($id)
     {
-        $formFields = $request->validate([
-            'categorie' => 'required',
-   ]);
+        $livre = Livre::find($id);
+        $formFields = ['likes'=> $livre->likes+1];
 
-        $categorie->update($formFields);
+             $livre->update($formFields);
+             return view('livres\livre', [
+                'livre' => $livre
+            ]);
 
-        return redirect('/dashboard')->with('message','categorie updated successfully');
     }
-
-    public function  delete(Categories $categorie){
-        $categorie->delete();
-        return Redirect('/dashboard')->with('message','categorie deleted successfully');
-     }
-
-
-          //storebook
-          public function storebook(Request $request)
-          {
-              $formFields = $request->validate([
-                  'title' => 'required',
-                  'discription' => 'required',
-                  'auteur' => 'required',
-                  'categorie_id' => 'required',
-
-                ]);
-
-              Livre::create($formFields);
-
-              return redirect('/dashboard')->with('message','categorie created successfully');
-          }
-          // updateLIVRE
-    public function updatebook(Request $request,Livre $book)
+    public function updatedislike ($id)
     {
-        $formFields = $request->validate([
-            'title'=>'required',
-            'discription'=>'required',
-            'auteur'=>'required',
-            'categorie_id'=>'',
-            'likes'=>'required',
-            'dislikes'=>'required',
-   ]);
+        $livre = Livre::find($id);
 
-        $book->update($formFields);
-        return Redirect('/dashboard')->with('message','book updated successfully');
+        $formFields = ['dislikes'=> $livre->dislikes+1];
+
+             $livre->update($formFields);
+
+             return view('livres\livre', [
+                'livre' => $livre
+            ]);
 
     }
-    public function  deletebook(Livre $book){
-        $book->delete();
-        return Redirect('/dashboard')->with('message','book deleted successfully');
-     }
-     public function archiverbook(Livre $book)
-     {
-         $formFields = ['archiver'=>'archive'];
+    public function stars($id,$star){
+        $livre = Livre::find($id);
 
-         $book->update($formFields);
-         return Redirect('/dashboard')->with('message','book updated successfully');
+        $formFields = ['stars'=> $star];
 
-     }
-     public function desarchiverbook(Livre $book)
-     {
-         $formFields = ['archiver'=> null];
+             $livre->update($formFields);
 
-         $book->update($formFields);
-         return Redirect('/dashboard')->with('message','book updated successfully');
+             return view('livres\livre', [
+                'livre' => $livre
+            ]);
+    }
+    public function favorite($id){
 
-     }
-//     public function index(){
-// $result = Livre::table('books')
-// ->join('categories','books.caegories','=','categories.id')
-// ->select('*')
-// ->get();
-// return $result;
-//     }
+        $formFields = [
+            'user_id' => auth()->id(),
+            'books_id' => $id,
+          ];
+
+        favorites::create($formFields);
+
+        return redirect('/profile');
+    }
+
+
 }
+
+
+

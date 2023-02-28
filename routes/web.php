@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LivresController;
 use App\Http\Controllers\ProfileController;
 
@@ -17,19 +18,25 @@ use App\Http\Controllers\ProfileController;
 
 Route::get('/', [LivresController::class, 'index']);
 Route::get('/home', [LivresController::class, 'index']);
-Route::get('/dashboard', [LivresController::class, 'dashboard'])->name('dashboard');
-Route::post('/createcategorie', [LivresController::class, 'store']);
-Route::put('/categorie/{categorie}', [LivresController::class, 'update']);
-Route::delete('/categories/{categorie}', [LivresController::class, 'delete']);
-Route::post('/createbook', [LivresController::class, 'storebook']);
-Route::put('/book/{book}', [LivresController::class, 'updatebook']);
-Route::delete('/books/delete/{book}', [LivresController::class, 'deletebook']);
-Route::put('/books/archiver/{book}', [LivresController::class, 'archiverbook']);
-Route::put('/books/desarchiver/{book}', [LivresController::class, 'desarchiverbook']);
+Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+Route::post('/createcategorie', [AdminController::class, 'store']);
+Route::put('/categorie/{categorie}', [AdminController::class, 'update']);
+Route::delete('/categories/{categorie}', [AdminController::class, 'delete']);
+Route::post('/createbook', [AdminController::class, 'storebook']);
+Route::put('/book/{book}', [AdminController::class, 'updatebook']);
+Route::delete('/books/delete/{book}', [AdminController::class, 'deletebook']);
+Route::put('/books/archiver/{book}', [AdminController::class, 'archiverbook']);
+Route::put('/books/desarchiver/{book}', [AdminController::class, 'desarchiverbook']);
+
+Route::get('/livre/{livre}', [LivresController::class, 'livre']);
+Route::get('/likes/{likes}', [LivresController::class, 'updatelike']);
+Route::get('/dislikes/{dislikes}', [LivresController::class, 'updatedislike']);
+Route::get('/note/{id}/{star}', [LivresController::class, 'stars']);
+Route::get('/favorite/{livre}', [LivresController::class, 'favorite']);
 
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile/f', [ProfileController::class, 'favorites'])->name('profile.favorites');
+    Route::get('/profile', [ProfileController::class, 'favorites'])->name('profile.favorites');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

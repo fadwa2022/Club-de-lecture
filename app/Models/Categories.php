@@ -14,7 +14,8 @@ class Categories extends Model
 ];
 
     use HasFactory;
+
     public function Lives(){
-        return $this->hasMany(Livre::class,'categorie_id','id');
+        return $this->hasMany(Livre::class);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use \App\Models\groupes;
+use App\Models\favorites;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -49,4 +50,9 @@ class User extends Authenticatable
 public function groupe(){
     return $this->hasMany(groupes::class,'user_created','id');
 }
+
+public function favorites(){
+    return $this->hasMany(favorites::class,'user_id','id');
+}
+
 }

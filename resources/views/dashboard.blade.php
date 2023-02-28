@@ -159,7 +159,7 @@
                                     </td>
                                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                         <select name="categorie_id" id="categorie" class="border  text-sm rounded-lg   block w-full p-2.5 ">
-                                            {{-- <option selected value="{{$categorie->id}}">{{$book->categorie->categorie}}</option> --}}
+                                            <option selected >{{$book->categories_name}}</option>
                                             @foreach($categories as $categorie)
                                             <option value="{{$categorie->id}}">{{$categorie->categorie}}</option>
                                             @endforeach
@@ -283,6 +283,7 @@
                                     </td>
                                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                         <select name="categorie_id" id="categorie" class="border  text-sm rounded-lg   block w-full p-2.5 ">
+                                            <option selected >{{$archiver->categories_name}}</option>
                                             @foreach($categories as $categorie)
                                             <option value="{{$categorie->id}}"> {{$categorie->categorie}} </option>
                                             @endforeach
@@ -408,7 +409,7 @@
 
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"> {{$groupe->name_groupe}}
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"> {{$groupe->id}}
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"> {{$groupe->user_name}}
                                 </td>
                             </tr>
                             @endforeach
