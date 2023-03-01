@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\GroupeController;
 use App\Http\Controllers\LivresController;
 use App\Http\Controllers\ProfileController;
 
@@ -33,6 +34,13 @@ Route::get('/likes/{likes}', [LivresController::class, 'updatelike']);
 Route::get('/dislikes/{dislikes}', [LivresController::class, 'updatedislike']);
 Route::get('/note/{id}/{star}', [LivresController::class, 'stars']);
 Route::get('/favorite/{livre}', [LivresController::class, 'favorite']);
+Route::post('/createcommentl/{livre}', [LivresController::class, 'comment']);
+
+Route::post('/creategroupe', [GroupeController::class, 'create']);
+Route::delete('/groupe/delete/{groupe}', [GroupeController::class, 'delete']);
+Route::post('/groupe/join/{groupe}', [GroupeController::class, 'join']);
+Route::get('/groupe/{groupe}', [GroupeController::class, 'groupe']);
+Route::post('/createcomment/{groupe}', [GroupeController::class, 'comment']);
 
 
 Route::middleware('auth')->group(function () {

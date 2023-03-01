@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\groupes;
 use App\Models\favorites;
 use App\Models\Categories;
 use Illuminate\Database\Eloquent\Model;
@@ -11,10 +12,24 @@ class Livre extends Model
 {
    use HasFactory;
     protected $table='books';
-
+    protected $fillable = [
+    'id',
+    'image',
+    'title',
+    'discription',
+    'auteur',
+    'categorie_id ',
+    'likes',
+    'dislikes',
+    'archiver',
+    'stars'
+];
  public function favorites(){
         return $this->hasMany(favorites::class);
  }
+ public function groupes(){
+    return $this->hasMany(groupes::class);
+}
 
  public function categorie(){
     return $this->belongsTo(Categories::class);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\groupes;
 use App\Models\favorites;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -23,10 +24,17 @@ class ProfileController extends Controller
         ->get()->filter(function ($entry) {
             return $entry->user_id === auth()->id();
         });
- 
+        $groupes = groupes::join('books', 'groupes.books_id', '=', 'books.id')
+        ->select('groupes.*', 'books.title','books.image','books.discription','books.auteur','books.id as id_book')
+        ->get()
+        ->filter(function ($entry) {
+                return $entry->user_created === auth()->id();
+            });
+
         return view('profile.edit', [
             'user' => $request->user(),
-            'favorites'=>$favorites
+            'favorites'=>$favorites,
+            'groupes'=>$groupes
         ]);
     }
 

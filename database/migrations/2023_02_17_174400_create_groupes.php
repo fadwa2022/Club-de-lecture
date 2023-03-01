@@ -16,7 +16,8 @@ return new class extends Migration
         Schema::create('groupes', function (Blueprint $table) {
             $table->id();
             $table->string('name_groupe');
-            $table->integer('commentaires_g');
+            $table->foreign('books_id')->references('id')->on('books');
+       
             $table->integer('user_created');
             $table->timestamps();
         });
