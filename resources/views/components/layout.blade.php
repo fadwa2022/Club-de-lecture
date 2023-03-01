@@ -64,12 +64,13 @@
 
         <nav id="navbar" class="navbar">
           <ul>
-            <li><a href="index.html">Books</a></li>
+            <li><a href="/">Books</a></li>
             @auth
             <li><a href="/profile">profile</a></li>
             @endauth
-            <li><a href="single-post.html">dashbord</a></li>
-            <li><a href="about.html">About</a></li>
+            @if (auth()->id()==2)
+            <li><a href="/dashboard">dashbord</a></li>
+@endif
           </ul>
         </nav><!-- .navbar -->
 
@@ -80,9 +81,17 @@
           <a href="#" class="mx-2"><span class="bi-twitter"></span></a>
           <a href="#" class="mx-2"><span class="bi-instagram"></span></a>
           <a href="#" class="mx-2 js-search-open"><span class="bi-search"></span></a>
-            <form action="/logout" method="POST" >
-            @csrf
-            <button type="submit" class="mx-2"><span class="bi bi-box-arrow-in-left"></span></button>
+          <div class="mt-3 space-y-1">
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+
+                <x-responsive-nav-link :href="route('logout')"
+                        onclick="event.preventDefault();
+                                    this.closest('form').submit();">
+                    {{ __('Log Out') }}
+                </x-responsive-nav-link>
+            </form>
+        </div>
         </form>
 
           <i class="bi bi-list mobile-nav-toggle"></i>

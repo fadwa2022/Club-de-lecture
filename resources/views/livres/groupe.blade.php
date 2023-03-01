@@ -29,7 +29,7 @@
 
               </div>
 
-    <form method="POST" class="flex gap-10 " action="/createcomment/{{$commentaire->groupe_id}}" enctype="multipart/form-data">
+    <form method="POST" class="flex gap-10 " action="/createcomment/{{$groupe->id}}" enctype="multipart/form-data">
         @csrf
 
 

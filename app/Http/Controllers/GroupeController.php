@@ -20,8 +20,7 @@ class GroupeController extends Controller
         ]);
         $formFields['user_created'] = auth()->id();
         groupes::create($formFields);
-
-        return redirect('/')->with('message','groupe created successfully');
+        return redirect('/');
     }
 
     public function  delete(groupes $groupe){

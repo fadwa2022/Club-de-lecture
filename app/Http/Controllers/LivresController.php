@@ -17,7 +17,10 @@ class LivresController extends Controller
     public function index(Request $request)
     {
 
-    $livres = Livre::latest()->filter(request(['search']))->paginate(4);
+    $livres = Livre::latest()
+    ->where('archiver',NULL)
+    ->filter(request(['search']))->paginate(4);
+
     $groupes = groupes::join('books', 'groupes.books_id', '=', 'books.id')
     ->select('groupes.*', 'books.title','books.image','books.discription','books.auteur','books.id as id_book')
     ->get();
@@ -39,6 +42,7 @@ class LivresController extends Controller
     public function livre (Livre $livre ){
         $commentaire = commentaire_livre::where('livre_id', $livre->id)->get();
         // dd($commentaire);
+
         return view('livres\livre', [
             'livre' => $livre,
             'commentaire'=>$commentaire
@@ -47,17 +51,22 @@ class LivresController extends Controller
 
     public function updatelike ($id)
     {
+        $commentaire = commentaire_livre::where('livre_id', $id)->get();
+
         $livre = Livre::find($id);
         $formFields = ['likes'=> $livre->likes+1];
 
              $livre->update($formFields);
              return view('livres\livre', [
-                'livre' => $livre
+                'livre' => $livre,
+                'commentaire'=>$commentaire
             ]);
 
     }
     public function updatedislike ($id)
     {
+        $commentaire = commentaire_livre::where('livre_id', $id)->get();
+
         $livre = Livre::find($id);
 
         $formFields = ['dislikes'=> $livre->dislikes+1];
@@ -65,11 +74,16 @@ class LivresController extends Controller
              $livre->update($formFields);
 
              return view('livres\livre', [
-                'livre' => $livre
+                'livre' => $livre,
+                'commentaire'=>$commentaire
+
             ]);
 
     }
+
     public function stars($id,$star){
+        $commentaire = commentaire_livre::where('livre_id', $id)->get();
+
         $livre = Livre::find($id);
 
         $formFields = ['stars'=> $star];
@@ -77,7 +91,9 @@ class LivresController extends Controller
              $livre->update($formFields);
 
              return view('livres\livre', [
-                'livre' => $livre
+                'livre' => $livre,
+                'commentaire'=>$commentaire
+
             ]);
     }
     public function favorite($id){
@@ -91,7 +107,7 @@ class LivresController extends Controller
           ->first();
 
 
-if($favorite) {
+          if($favorite) {
     return redirect('/profile');
 
   } else {
